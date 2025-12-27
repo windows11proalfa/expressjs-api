@@ -1,14 +1,13 @@
-FROM node:latest
+FROM node:lts-buster
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN rm -rf /var/lib/apt/lists/*
 
-# Copy package.json
-COPY package.json /usr/src/app
+COPY package.json .
 
-# Install node_modules
-RUN npm install
+RUN npm install --force
 
-# Copy files
-COPY . /usr/src/app
+COPY . .
+
+EXPOSE 5000
+
+RUN npm start
